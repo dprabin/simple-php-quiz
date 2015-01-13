@@ -1,5 +1,5 @@
- <?php include "database.php"; ?>
-
+<?php include "database.php"; ?>
+<?php session_start(); ?>
 <?php
 	//Set question number
 	$number = (int) $_GET['n'];
@@ -55,7 +55,7 @@
 		<?php endwhile; ?>
 	      </ul>
 	      <input type="submit" value="submit" />
-	      <input type="hidden" name="number" value=<?php echo $number ?>
+	      <input type="hidden" name="number" value="<?php echo $number; ?>" />
 	</form>
       </div>
     </div>
