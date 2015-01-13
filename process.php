@@ -7,36 +7,36 @@
 	   $_SESSION['score'] = 0;
 	}
 
-
 //Check if form was submitted
 if($_POST){
 	$number = $_POST['number'];
 	$selected_choice = $_POST['choice'];
-	echo "I have been submitted ".$number." ".$selected_choice;
-	
 	$next=$number+1;
+	$total=4;
 
-	//Get Correct choice
-	$query="select * from `choices` where question_number = $number and is_correct=1"
-	$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+	//Get total number of questions
+	$query="SELECT * FROM `questions`";
+	$results = $mysqli->query($query) or die($mysqli->error.__LINE__);
+	$total=$results->num_rows;
+
+	//Get correct choice
+	$q = "select * from `choices` where question_number = $number and is_correct=1";
+	$result = $mysqli->query($q) or die($mysqli->error.__LINE__);
 	$row = $result->fetch_assoc();
 	$correct_choice=$row['id'];
 
-`	//Get total number of questions
-	$query="select * from `questions`";
-	$results = $mysali->query($query) or die($mysqli->error.__LINE__);
-	$total=$results->num_rows;
+
 
 	//compare answer with result
 	if($correct_choice == $selected_choice){
-			   $_SESSION['score']++;
+		$_SESSION['score']++;
 	}
 
 	if($number == $total){
-		   header("Location: final.php");
-		   exit();
-	}else {
-	      header("Location: question.php?n=".$next);
+		header("Location: final.php");
+		exit();
+	} else {
+	        header("Location: question.php?n=".$next."&score=".$_SESSION['score']);
 	}
- }
- ?>
+}
+?>
