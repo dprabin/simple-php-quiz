@@ -1,5 +1,5 @@
  <?php include "database.php"; ?>
-
+<?php session_start(); ?>
 <?php
 	//Create Select Query
 	$query="select * from shouts order by time desc limit 100";
@@ -26,8 +26,9 @@
 	<div class="container">
 	     <h2>You are Done!</h2>
 	     <p>Congrats! You have completed the test</p>
-	     <p>Final socre: 5</p>
+	     <p>Final socre: <?php echo $_SESSION['score']; ?></p>
 	     <a href="question.php?n=1" class="start">Take Test Again</a>
+	     <?php session_destroy(); ?>
 	</div>
       </main>
 
