@@ -21,23 +21,24 @@ if (isset($_POST['submit'])){
    //VALIDATE INSERT
    if($insert_row){
       foreach($choices as $choice => $value){
-         if($value != ''){
-	    if($correct_choice == $choice){
-	       $is_correct = 1;
-	    } else {
-	      $is_correct = 0;
-	    }
-            $query="insert into choices (question_number,is_correct,choice) 
-   	       values('$question_number','$is_correct','$value')";
-            $insert_row=$mysqli->query($query) or die ($mysqli->error.__LINE__);
-	    if($insert_row){
-	       continue;
-	    }else {
-	      die("Error: (".$mysqli->errno.") ".$mysqli->eerror);
-	    }
+        if($value != ''){
+	       if($correct_choice == $choice){
+	          $is_correct = 1;
+	       } else {
+	         $is_correct = 0;
+	       }
+              $query="insert into choices (question_number,is_correct,choice) 
+   	          values('$question_number','$is_correct','$value')";
+              $insert_row=$mysqli->query($query) or die ($mysqli->error.__LINE__);
+	          if($insert_row){
+	            continue;
+	          }else {
+	      		die("Error: (".$mysqli->errno.") ".$mysqli->eerror);
+	    	}
         }
-   }
+    }
    $msg="Question has been added";
+}
 }
 //get total questions
 $query = "select * from questions";
@@ -73,7 +74,7 @@ $next=$total+1;
 	     <form method="post" action="add.php">
 	     	   <p>
 			<label>Question Number</label>
-			<input type="number" name="question_number" />
+			<input type="number" value="<?php echo $next; ?>" name="question_number" />
 		   </p>
 	     	   <p>
 			<label>Question</label>
